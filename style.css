@@ -21,6 +21,7 @@
 }
 
 *{ box-sizing:border-box; }
+[hidden]{ display:none !important; }
 html{ scroll-behavior:smooth; }
 @media (prefers-reduced-motion:reduce){ html{ scroll-behavior:auto; } }
 
@@ -168,6 +169,29 @@ p{ margin:0 0 12px; }
 .contacts{ display:flex; flex-wrap:wrap; gap:26px; margin-top:26px; font-size:12px; letter-spacing:.08em; text-transform:uppercase; }
 .btn{ display:inline-block; margin-top:24px; background:var(--ink); color:var(--cream);
       padding:16px 28px; font-size:11px; letter-spacing:.16em; text-transform:uppercase; font-weight:600; }
+/* ---------- форма брифа ---------- */
+.briefform{ margin-top:34px; max-width:640px; display:grid; gap:18px; }
+.brief-row{ display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+@media (max-width:640px){ .brief-row{ grid-template-columns:1fr; } }
+.briefform label{ display:grid; gap:7px; font-size:10px; letter-spacing:.16em;
+              text-transform:uppercase; font-weight:600; color:var(--ink); }
+.briefform input, .briefform select, .briefform textarea{
+  font-family:inherit; font-size:14px; letter-spacing:normal; text-transform:none; font-weight:400;
+  color:var(--ink); background:#fff; border:1px solid var(--line-l); border-radius:0;
+  padding:12px 14px; width:100%; }
+.briefform textarea{ resize:vertical; min-height:96px; }
+.briefform input:focus, .briefform select:focus, .briefform textarea:focus{
+  outline:none; border-color:var(--bronze); box-shadow:0 0 0 2px rgba(148,97,58,.15); }
+.briefform input::placeholder, .briefform textarea::placeholder{ color:#9c927f; }
+.brief-foot{ display:flex; align-items:center; gap:18px; flex-wrap:wrap; }
+.brief-foot .btn{ margin-top:0; cursor:pointer; border:0; }
+.brief-foot .btn[disabled]{ opacity:.5; cursor:default; }
+.brief-msg{ font-size:12px; color:var(--sand); }
+.brief-msg.err{ color:#a23; }
+.brief-thanks{ margin:34px 0 0; font-family:var(--italic); font-style:italic;
+               font-size:clamp(19px,2.1vw,26px); color:var(--bronze); }
+button.btn{ font-family:inherit; cursor:pointer; border:0; }
+
 .foot{ background:var(--ink); color:var(--sand); display:flex; flex-wrap:wrap; gap:12px;
        justify-content:space-between; padding:22px var(--pad) 32px; font-size:10px; letter-spacing:.08em; }
 
@@ -184,7 +208,7 @@ p{ margin:0 0 12px; }
 .brief .pr-card img{ aspect-ratio:auto; }
 .frames{ display:grid; grid-template-columns:repeat(2,1fr); gap:clamp(10px,1.5vw,20px); }
 .frames img{ aspect-ratio:4/5; object-fit:cover; }
-.reel{ max-width:340px; } .reel img{ aspect-ratio:9/16; object-fit:cover; }
+.reel{ max-width:340px; } .reel img, .reel video{ aspect-ratio:9/16; object-fit:cover; width:100%; height:auto; }
 .pager{ display:flex; justify-content:space-between; gap:16px; padding-block:clamp(32px,5vw,64px); border-top:1px solid var(--line-l); }
 @media (max-width:700px){ .frames{ grid-template-columns:1fr; } }
 

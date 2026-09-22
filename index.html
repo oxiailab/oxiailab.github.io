@@ -323,11 +323,91 @@
     <p class="note">Thank you for looking through my portfolio.</p>
     <h2 class="giant">Let's tell <em>your story</em></h2>
     <div class="contacts">
-      <a href="https://instagram.com/oxi_ai_lab" target="_blank" rel="noopener">Instagram — @oxi_ai_lab</a>
+      <a href="https://instagram.com/oxi_ai_lab" target="_blank" rel="noopener">Instagram &mdash; @oxi_ai_lab</a>
     </div>
-    <a class="btn" href="https://instagram.com/oxi_ai_lab" target="_blank" rel="noopener">Send a brief</a>
+    <button type="button" class="btn" id="briefOpen">Send a brief</button>
+
+    <form class="briefform" id="briefForm" hidden novalidate
+          action="https://formsubmit.co/ajax/aioxilab@gmail.com" method="POST">
+      <div class="brief-row">
+        <label>Brand
+          <input name="Brand" type="text" required autocomplete="organization">
+        </label>
+        <label>Email
+          <input name="Email" type="email" required autocomplete="email">
+        </label>
+      </div>
+      <div class="brief-row">
+        <label>Category
+          <select name="Category">
+            <option value="" selected>Select one</option>
+            <option>Apparel</option>
+            <option>Lingerie</option>
+            <option>Swimwear</option>
+            <option>Footwear</option>
+            <option>Bags &amp; accessories</option>
+            <option>Jewellery</option>
+            <option>Cosmetics</option>
+            <option>Other</option>
+          </select>
+        </label>
+        <label>Product link
+          <input name="Product link" type="url" placeholder="https://" autocomplete="off">
+        </label>
+      </div>
+      <label>Your brief
+        <textarea name="Your brief" rows="4" required
+          placeholder="Tell me about the product and what you need: photos, a reel, or both, how many looks, and any deadline."></textarea>
+      </label>
+      <input type="hidden" name="_subject" value="New brief from oxiailab.github.io">
+      <input type="hidden" name="_template" value="table">
+      <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <div class="brief-foot">
+        <button type="submit" class="btn" id="briefSend">Send</button>
+        <span class="brief-msg" id="briefMsg" role="status" aria-live="polite"></span>
+      </div>
+    </form>
   </div>
 </section>
+
+<script>
+/* Форма брифа: кнопка раскрывает форму, отправка через FormSubmit AJAX,
+   человек остаётся на странице, ответ показывается строкой под кнопкой. */
+(function(){
+  var open = document.getElementById('briefOpen'),
+      form = document.getElementById('briefForm'),
+      send = document.getElementById('briefSend'),
+      msg  = document.getElementById('briefMsg');
+  if (!open || !form) return;
+  open.addEventListener('click', function(){
+    form.hidden = false; open.hidden = true;
+    var f = form.querySelector('input,select,textarea'); if (f) f.focus();
+  });
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    if (form._honey.value) return;                 // бот заполнил ловушку
+    if (!form.checkValidity()){ form.reportValidity(); return; }
+    send.disabled = true; msg.textContent = 'Sending…'; msg.className = 'brief-msg';
+    fetch(form.action, {
+      method: 'POST',
+      headers: {'Accept':'application/json'},
+      body: new FormData(form)
+    }).then(function(r){ return r.json(); })
+      .then(function(){
+        var t = document.createElement('p');
+        t.className = 'brief-thanks';
+        t.textContent = 'Thank you. I’ll be in touch shortly.';
+        form.innerHTML = '';
+        form.appendChild(t);
+      })
+      .catch(function(){
+        send.disabled = false;
+        msg.textContent = 'Something went wrong. Please email aioxilab@gmail.com.';
+        msg.className = 'brief-msg err';
+      });
+  });
+})();
+</script>
 
 <footer class="foot">
   <span>OXI AI LAB</span>
