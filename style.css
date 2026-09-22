@@ -271,8 +271,9 @@ p{ margin:0 0 12px; }
   .case .pr{ justify-content:center; }
   .case:not(.flip-none) .pr{ grid-template-columns:clamp(240px,24vw,330px) auto; }
   .case .pr:not(.flip){ grid-template-columns:auto clamp(240px,24vw,330px); }
-  .case .pr-card img{ height:calc(var(--fh) - 360px); min-height:120px; width:auto;
-                      margin-inline:auto; }
+  /* пакшот вписан и по высоте экрана, и в ширину карточки: не вылезает за рамку */
+  .case .pr-card img{ max-height:calc(var(--fh) - 360px); min-height:120px;
+                      max-width:100%; width:auto; height:auto; margin-inline:auto; }
   .case .link{ margin-top:clamp(16px,2.4vh,34px); }
 }
 .case.dark{ background:var(--ink); color:var(--cream); }
